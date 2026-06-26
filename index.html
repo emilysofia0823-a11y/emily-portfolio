@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Emily Sánchez — Estrategia de Marca & Contenido</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream: #F3EDE0;
+      --cream2: #EDE6D6;
+      --red: #8C1A12;
+      --red2: #A52010;
+      --teal: #00A89A;
+      --dark: #1A1008;
+      --muted: #7A6A55;
+      --muted2: #5A4E3E;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── REAL BUBBLES ─── */
+    .bubble-svg {
+      position: absolute;
+      pointer-events: none;
+      animation: floatBubble linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes floatBubble {
+      0%   { transform: translateY(0) translateX(0); opacity: 0; }
+      8%   { opacity: 1; }
+      50%  { transform: translateY(-45vh) translateX(var(--drift, 20px)); }
+      92%  { opacity: 0.7; }
+      100% { transform: translateY(-105vh) translateX(var(--drift2, -15px)); opacity: 0; }
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:200;
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 18px 52px;
+      background: rgba(243,237,224,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(140,26,18,0.1);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; font-weight: 900;
+      color: var(--dark); text-decoration: none;
+    }
+    .nav-logo span { color: var(--red); }
+
+    .nav-links { display:flex; gap:36px; list-style:none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.74rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--red); }
+
+    .nav-cta {
+      border: 1.5px solid var(--red); color: var(--red);
+      padding: 9px 24px; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 700;
+      text-decoration: none; transition: all .2s;
+    }
+    .nav-cta:hover { background: var(--red); color: white; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+      position: relative; overflow: hidden; padding-top: 0;
+    }
+
+    .hero-text {
+      padding: 140px 52px 80px 52px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; z-index: 1;
+    }
+
+    .hero-year {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 36px; display: flex; align-items: center; gap: 10px;
+    }
+    .hero-year::before { content:''; width:32px; height:1px; background:var(--red); }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(4rem, 7vw, 7.5rem);
+      font-weight: 900; line-height: 0.92;
+      letter-spacing: -3px; margin-bottom: 32px;
+      color: var(--red);
+    }
+    .hero h1 .name-line {
+      display: block; color: var(--dark);
+      font-style: italic; font-size: 0.45em;
+      letter-spacing: -1px; margin-top: 8px;
+    }
+
+    .hero-desc {
+      font-size: 1rem; color: var(--muted2);
+      line-height: 1.85; font-weight: 300;
+      max-width: 400px; margin-bottom: 44px;
+      border-left: 2px solid var(--red);
+      padding-left: 20px;
+    }
+    .hero-desc strong { color: var(--dark); font-weight: 600; }
+
+    .hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
+
+    .btn-red {
+      background: var(--red); color: white;
+      padding: 14px 34px; border-radius: 4px;
+      font-weight: 700; font-size: 0.88rem;
+      text-decoration: none; letter-spacing: 0.5px;
+      transition: background .2s;
+    }
+    .btn-red:hover { background: var(--red2); }
+
+    .btn-outline {
+      border: 1.5px solid var(--red); color: var(--red);
+      padding: 14px 34px; border-radius: 4px;
+      font-weight: 600; font-size: 0.88rem;
+      text-decoration: none; transition: all .2s;
+    }
+    .btn-outline:hover { background: rgba(140,26,18,0.06); }
+
+    .hero-photo-wrap {
+      position:relative; overflow:hidden;
+    }
+    .hero-photo-wrap img {
+      width:100%; height:100%;
+      object-fit:cover; object-position:center top;
+      display:block;
+    }
+    .hero-photo-wrap::after {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(to right, var(--cream) 0%, transparent 18%),
+                  linear-gradient(to top, var(--cream) 0%, transparent 15%);
+    }
+
+    .hero-social {
+      position:absolute; left:52px; bottom:36px; z-index:2;
+      display:flex; gap:20px;
+    }
+    .hero-social a {
+      color: var(--muted); font-size: 0.7rem;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      text-decoration: none; transition: color .2s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .hero-social a::before { content:''; width:18px; height:1px; background:currentColor; }
+    .hero-social a:hover { color: var(--red); }
+
+    /* ─── SECTION COMMONS ─── */
+    section { padding: 110px 52px; position: relative; }
+    .inner { max-width: 1160px; margin: 0 auto; }
+
+    .s-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--red); margin-bottom: 14px;
+    }
+    .s-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      font-weight: 900; line-height: 1.05; margin-bottom: 18px;
+      color: var(--dark);
+    }
+    .s-title em { font-style: italic; color: var(--red); }
+
+    .bar {
+      width: 44px; height: 3px;
+      background: var(--red);
+      border-radius: 1px; margin-bottom: 52px;
+    }
+
+    /* ─── SOBRE MÍ ─── */
+    #sobre-mi { background: white; }
+
+    .sobre-grid {
+      display: grid; grid-template-columns: 1fr 1.1fr;
+      gap: 80px; align-items: center;
+    }
+
+    .sobre-img-frame {
+      border-radius: 4px 4px 80px 4px;
+      overflow: hidden; aspect-ratio: 3/4;
+      position: relative;
+    }
+    .sobre-img-frame img {
+      width:100%; height:100%;
+      object-fit:cover; object-position:center top;
+    }
+
+    .sobre-badge {
+      position: absolute; bottom: -16px; right: -16px;
+      background: var(--red);
+      border: 3px solid white;
+      border-radius: 50%; width: 92px; height: 92px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-size: 0.64rem; font-weight: 700;
+      text-align: center; line-height: 1.4; color: white;
+    }
+
+    .sobre-img-wrap { position: relative; }
+
+    .sobre-text p {
+      font-size: 1.02rem; line-height: 1.9;
+      color: var(--muted2); font-weight: 300; margin-bottom: 22px;
+    }
+    .sobre-text p strong { color: var(--dark); font-weight: 600; }
+
+    .sobre-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:32px; }
+    .pill {
+      border: 1px solid rgba(140,26,18,0.3); color: var(--red);
+      padding: 5px 15px; border-radius: 2px;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px;
+    }
+
+    /* ─── SERVICIOS ─── */
+    #servicios { background: var(--cream2); }
+
+    .servicios-head { text-align:center; max-width:560px; margin:0 auto 64px; }
+    .servicios-head .bar { margin:0 auto 52px; }
+
+    .servicios-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+
+    .srv-card {
+      background: white;
+      padding: 40px 32px;
+      transition: all .3s; position: relative;
+      border-bottom: 2px solid transparent;
+    }
+    .srv-card:hover { border-bottom-color: var(--red); background: #FDFAF6; }
+
+    .srv-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 900;
+      color: rgba(140,26,18,0.12); line-height: 1;
+      margin-bottom: 20px; display: block;
+    }
+    .srv-title { font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--dark); }
+    .srv-desc { font-size: 0.84rem; color: var(--muted); line-height: 1.72; }
+
+    /* ─── EXPERIENCIA ─── */
+    #experiencia { background: var(--dark); color: white; }
+    #experiencia .s-title { color: white; }
+    #experiencia .s-label { color: #E87070; }
+    #experiencia .bar { background: #E87070; }
+
+    .exp-wrap {
+      background: #1E1208;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 4px; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1.1fr;
+    }
+    .exp-left {
+      padding: 56px 52px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .exp-tag {
+      display: inline-block;
+      border: 1px solid rgba(232,112,112,0.4); color: #E87070;
+      padding: 4px 14px; border-radius: 2px;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase; margin-bottom: 22px;
+    }
+    .exp-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 900; line-height: 1.05; margin-bottom: 20px;
+      color: white;
+    }
+    .exp-brand em { font-style: italic; color: #E87070; }
+    .exp-body { font-size: 0.92rem; color: rgba(255,255,255,0.6); line-height: 1.82; margin-bottom: 30px; }
+    .exp-pills { display:flex; flex-wrap:wrap; gap:8px; }
+    .pill-dark {
+      border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.7);
+      padding: 5px 15px; border-radius: 2px;
+      font-size: 0.75rem; font-weight: 600;
+    }
+
+    .exp-right { padding: 56px 48px; display:flex; flex-direction:column; gap:28px; justify-content:center; }
+    .exp-item { display:flex; gap:16px; align-items:flex-start; }
+    .exp-line {
+      width: 2px; flex-shrink: 0; margin-top: 6px;
+      background: #E87070; align-self: stretch;
+      min-height: 40px; border-radius: 1px;
+    }
+    .exp-item-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; color: white; }
+    .exp-item-sub { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+    /* ─── FILOSOFÍA ─── */
+    #evento { padding:0; position:relative; overflow:hidden; }
+    .evento-img {
+      width:100%; height:70vh;
+      object-fit:cover; object-position:center 20%;
+      display:block; filter:brightness(0.7);
+    }
+    .evento-overlay {
+      position:absolute; inset:0;
+      background: linear-gradient(to right, rgba(10,5,2,0.82) 0%, transparent 60%),
+                  linear-gradient(to top, rgba(10,5,2,0.5) 0%, transparent 40%);
+      display:flex; align-items:center; padding:0 80px;
+    }
+    .evento-text { max-width:520px; }
+    .evento-label { font-size:0.7rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#E87070; margin-bottom:20px; }
+    .evento-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      font-weight: 900; font-style: italic;
+      line-height: 1.15; color: white; margin-bottom: 20px;
+    }
+    .evento-quote em { color: #E87070; font-style: normal; }
+    .evento-sub { font-size: 0.92rem; color: rgba(255,255,255,0.65); line-height: 1.75; }
+
+    /* ─── EDUCACIÓN ─── */
+    #educacion { background: white; }
+
+    .edu-grid { display:grid; grid-template-columns:1fr 1.4fr; gap:80px; align-items:start; }
+
+    .edu-card {
+      background: var(--cream); border: 1px solid rgba(140,26,18,0.1);
+      border-radius: 4px; padding: 36px; position: relative; overflow: hidden;
+    }
+    .edu-card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 3px; bottom: 0;
+      background: var(--red);
+    }
+
+    .edu-uni-img {
+      width:100%; border-radius: 4px; margin-bottom: 20px;
+      aspect-ratio: 16/9; object-fit:cover; object-position:center 30%;
+    }
+    .edu-year { font-size:0.7rem; font-weight:700; color:var(--red); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; }
+    .edu-name { font-family:'Playfair Display', serif; font-size:1.4rem; font-weight:700; margin-bottom:6px; color:var(--dark); }
+    .edu-degree { font-size:0.85rem; color:var(--red); font-weight:600; margin-bottom:14px; }
+    .edu-desc { font-size:0.84rem; color:var(--muted); line-height:1.72; }
+
+    .skills-wrap { display:flex; flex-direction:column; gap:22px; }
+    .skill { display:flex; flex-direction:column; gap:8px; }
+    .skill-row { display:flex; justify-content:space-between; }
+    .skill-name { font-size:0.86rem; font-weight:600; color:var(--dark); }
+    .skill-pct { font-size:0.78rem; color:var(--red); font-weight:700; }
+    .skill-track { height:3px; background:rgba(140,26,18,0.1); border-radius:2px; overflow:hidden; }
+    .skill-fill { height:100%; background:var(--red); border-radius:2px; }
+
+    /* ─── FE / MANTRA ─── */
+    #fe {
+      background: var(--dark);
+      color: white;
+      padding: 100px 52px;
+      position: relative; overflow: hidden;
+    }
+
+    .fe-inner {
+      max-width: 1160px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.2fr 1fr;
+      gap: 80px; align-items: center;
+    }
+
+    .fe-left {}
+
+    .fe-mantra-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: rgba(243,237,224,0.4);
+      margin-bottom: 20px;
+    }
+
+    .fe-mantra {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 900; font-style: italic;
+      line-height: 1.15; color: var(--cream);
+      margin-bottom: 16px;
+    }
+
+    .fe-sub {
+      font-size: 0.9rem; color: rgba(243,237,224,0.5);
+      font-weight: 500; letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .fe-right {
+      display: flex; flex-direction: column; gap: 28px;
+    }
+
+    .fe-verse {
+      border-left: 2px solid rgba(140,26,18,0.6);
+      padding: 20px 24px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .fe-verse-ref {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: #E87070;
+      margin-bottom: 10px;
+    }
+
+    .fe-verse-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-style: italic;
+      line-height: 1.7; color: rgba(243,237,224,0.85);
+    }
+
+    @media (max-width:900px) {
+      .fe-inner { grid-template-columns: 1fr; gap: 48px; }
+      #fe { padding: 80px 24px; }
+    }
+
+    /* ─── CONTENIDO ─── */
+    #contenido { background: var(--cream2); }
+
+    .contenido-head { text-align:center; max-width:560px; margin:0 auto 64px; }
+    .contenido-head .bar { margin:0 auto 52px; }
+
+    .plat-tabs { display:flex; justify-content:center; gap:0; margin-bottom:52px; }
+    .ptab {
+      padding: 10px 32px; border: 1.5px solid rgba(140,26,18,0.25);
+      background: none; color: var(--muted);
+      font-size: 0.8rem; font-weight: 700; cursor: pointer;
+      letter-spacing: 1px; text-transform: uppercase; transition: all .2s;
+    }
+    .ptab:first-child { border-radius: 4px 0 0 4px; }
+    .ptab:last-child  { border-radius: 0 4px 4px 0; margin-left:-1.5px; }
+    .ptab.on { background: var(--red); border-color: var(--red); color: white; }
+    .ptab:not(.on):hover { color: var(--red); border-color: var(--red); }
+
+    .ig-grid {
+      display:grid; grid-template-columns:repeat(2,1fr);
+      gap:20px; max-width:880px; margin:0 auto;
+    }
+    .ig-card {
+      border-radius: 4px; overflow:hidden;
+      background: white; border: 1px solid rgba(140,26,18,0.1);
+      transition: transform .3s, box-shadow .3s;
+      text-decoration:none; color:inherit;
+      display:flex; flex-direction:column;
+    }
+    .ig-card:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(140,26,18,0.1); }
+
+    .ig-card-header {
+      height: 200px;
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+      display:flex; align-items:center; justify-content:center;
+      position:relative; overflow:hidden;
+    }
+    .ig-card-header::before { content:''; position:absolute; inset:0; background:rgba(0,0,0,0.18); }
+
+    .ig-play {
+      position:relative; z-index:1;
+      width:52px; height:52px;
+      background:rgba(255,255,255,0.95); border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.1rem; transition:transform .2s;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+    }
+    .ig-card:hover .ig-play { transform:scale(1.08); }
+
+    .ig-reel-badge {
+      position:absolute; top:10px; right:10px; z-index:1;
+      background:rgba(0,0,0,0.45); border-radius:2px;
+      padding:3px 10px; font-size:0.66rem; font-weight:700;
+      letter-spacing:1px; text-transform:uppercase; color:white;
+    }
+
+    .ig-card-body { padding:18px 20px 22px; }
+    .ig-card-user { font-size:0.76rem; font-weight:700; color:var(--red); margin-bottom:6px; }
+    .ig-card-desc { font-size:0.82rem; color:var(--muted); line-height:1.55; margin-bottom:14px; }
+    .ig-card-btn {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:0.76rem; font-weight:700; color:white;
+      background: linear-gradient(135deg,#833ab4,#fd1d1d);
+      padding:7px 16px; border-radius:2px; text-decoration:none;
+      transition:opacity .2s;
+    }
+    .ig-card-btn:hover { opacity:.85; }
+
+    .tt-grid {
+      display:none; grid-template-columns:repeat(2,1fr);
+      gap:24px; max-width:800px; margin:0 auto;
+    }
+    .tt-wrap {
+      background: white; border: 1px solid rgba(140,26,18,0.1);
+      border-radius:4px; overflow:hidden; display:flex; justify-content:center;
+    }
+
+    /* ─── CONTACTO ─── */
+    #contacto { background: var(--red); color: white; text-align:center; }
+    #contacto .s-label { color: rgba(255,255,255,0.6); }
+    #contacto .s-title { color: white; }
+    #contacto .s-title em { color: var(--cream); }
+    #contacto .bar { background: rgba(255,255,255,0.4); margin:0 auto 52px; }
+
+    .contacto-inner { max-width:680px; margin:0 auto; position:relative; z-index:1; }
+
+    .contacto-sub {
+      font-size:1.02rem; color:rgba(255,255,255,0.75);
+      line-height:1.85; font-weight:300; margin-bottom:44px;
+    }
+    .contacto-sub strong { color:white; font-weight:600; }
+
+    .contacto-email {
+      font-family:'Playfair Display', serif;
+      font-size:clamp(1.3rem, 3vw, 2rem);
+      font-style:italic; color:var(--cream);
+      text-decoration:none; display:block; margin-bottom:48px;
+      transition:opacity .2s;
+    }
+    .contacto-email:hover { opacity:.8; }
+
+    .soc-row { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+    .soc-btn {
+      display:flex; align-items:center; gap:8px;
+      border: 1.5px solid rgba(255,255,255,0.3); color:white;
+      padding:12px 26px; border-radius:4px;
+      text-decoration:none; font-size:0.84rem; font-weight:600; transition:all .2s;
+    }
+    .soc-btn:hover { background:rgba(255,255,255,0.12); border-color:white; }
+    .soc-btn.wa { background:#25D366; border-color:#25D366; }
+    .soc-btn.wa:hover { background:#1eb35a; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark);
+      padding: 24px 52px;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    }
+    footer p { font-size:0.75rem; color:rgba(255,255,255,0.35); }
+    footer a { color: rgba(243,237,224,0.6); text-decoration:none; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width:900px) {
+      nav { padding:16px 24px; }
+      .nav-links { display:none; }
+      .hero { grid-template-columns:1fr; }
+      .hero-photo-wrap { height:65vw; }
+      .hero-text { padding:100px 24px 40px; }
+      .hero-social { left:24px; bottom:20px; }
+      section { padding:80px 24px; }
+      .sobre-grid, .edu-grid { grid-template-columns:1fr; }
+      .exp-wrap { grid-template-columns:1fr; }
+      .exp-left { border-right:none; border-bottom:1px solid rgba(255,255,255,0.07); padding:36px 28px; }
+      .exp-right { padding:36px 28px; }
+      .servicios-grid { grid-template-columns:1fr; gap:1px; }
+      .ig-grid, .tt-grid { grid-template-columns:1fr; }
+      .evento-overlay { padding:0 28px; }
+      footer { flex-direction:column; text-align:center; padding:20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#inicio" class="nav-logo">Emily<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#experiencia">Experiencia</a></li>
+    <li><a href="#contenido">Contenido</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="https://wa.me/573233813982" target="_blank" class="nav-cta">Hablemos</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio" style="padding:0;">
+  <div id="bubble-container" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;"></div>
+
+  <div class="hero-text">
+    <div class="hero-year">2026 · Creative Portfolio</div>
+    <div style="font-size:0.72rem;color:var(--muted);letter-spacing:2px;margin-bottom:14px;font-style:italic;">✦ Eclesiastés 3:1</div>
+    <h1>
+      Solo yo.
+      <span class="name-line">Emily Sánchez</span>
+    </h1>
+    <p class="hero-desc">
+      Defino estrategias de marca y creo contenido orgánico que las activa en redes.<br/>
+      <strong>No separo el pensar del hacer.</strong>
+    </p>
+    <div class="hero-btns">
+      <a href="#servicios" class="btn-red">Ver servicios</a>
+      <a href="#contenido" class="btn-outline">Mi contenido ↗</a>
+    </div>
+  </div>
+  <div class="hero-photo-wrap">
+    <img src="fotos/emily-hero.jpg" alt="Emily Sánchez"/>
+  </div>
+  <div class="hero-social">
+    <a href="https://instagram.com/Emilysofiias" target="_blank">@Emilysofiias</a>
+    <a href="https://tiktok.com/@Eem1l7" target="_blank">@Eem1l7</a>
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section id="sobre-mi">
+  <div id="bubble-sobre" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;"></div>
+  <div class="inner">
+    <div class="sobre-grid">
+      <div class="sobre-img-wrap">
+        <div class="sobre-img-frame">
+          <img src="fotos/emily-about.jpg" alt="Emily Sánchez"/>
+        </div>
+        <div class="sobre-badge">100%<br/>orgánico.<br/>Real.</div>
+      </div>
+      <div class="sobre-text">
+        <div class="s-label">Sobre mí</div>
+        <h2 class="s-title">Pienso.<br/>Creo. <em>Convierto.</em></h2>
+        <div class="bar"></div>
+        <p>Hago dos cosas: <strong>defino estrategias de marca</strong> y creo contenido orgánico que las activa en redes. Estudio negocios de moda — entiendo el discurso, la cultura y lo que compra tu cliente.</p>
+        <p>Ya estoy en campo <strong>impulsando ventas reales</strong> en un restaurante. Si tu marca necesita dirección y contenido que convierta, <strong>soy tu perfil ideal.</strong></p>
+        <div class="sobre-pills">
+          <span class="pill">Estrategia de marca</span>
+          <span class="pill">Contenido orgánico</span>
+          <span class="pill">Negocios de moda</span>
+          <span class="pill">Instagram & TikTok</span>
+          <span class="pill">Edición de video</span>
+          <span class="pill">Desarrollo web</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div id="bubble-srv" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;"></div>
+  <div class="inner">
+    <div class="servicios-head">
+      <div class="s-label">Servicios</div>
+      <h2 class="s-title">Lo que puedo<br/><em>hacer por ti</em></h2>
+      <div class="bar"></div>
+    </div>
+    <div class="servicios-grid">
+      <div class="srv-card">
+        <span class="srv-num">01</span>
+        <div class="srv-title">Estrategia de Marca</div>
+        <div class="srv-desc">Posicionamiento, voz y dirección de tu marca. Analizo audiencia, competencia y cultura para una estrategia con propósito real.</div>
+      </div>
+      <div class="srv-card">
+        <span class="srv-num">02</span>
+        <div class="srv-title">Creación de Contenido</div>
+        <div class="srv-desc">Grabo, edito y produzco videos y piezas para Instagram y TikTok. Contenido que engancha y convierte sin perder autenticidad.</div>
+      </div>
+      <div class="srv-card">
+        <span class="srv-num">03</span>
+        <div class="srv-title">Gestión de Redes</div>
+        <div class="srv-desc">Manejo tu presencia en Instagram y TikTok: calendarios, publicaciones, historias, interacción y análisis de métricas.</div>
+      </div>
+      <div class="srv-card">
+        <span class="srv-num">04</span>
+        <div class="srv-title">Desarrollo Web</div>
+        <div class="srv-desc">Sitios web funcionales, rápidos y con identidad. Desde portafolios hasta tiendas con sistema de pedidos integrado.</div>
+      </div>
+      <div class="srv-card">
+        <span class="srv-num">05</span>
+        <div class="srv-title">Consultoría de Moda</div>
+        <div class="srv-desc">Comportamiento del consumidor, discurso cultural y estrategias de marca con propósito dentro de la industria de la moda.</div>
+      </div>
+      <div class="srv-card">
+        <span class="srv-num">06</span>
+        <div class="srv-title">Marketing Digital</div>
+        <div class="srv-desc">Estrategias 360° desde el concepto hasta la ejecución, midiendo resultados reales en cada etapa del proceso.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCIA -->
+<section id="experiencia">
+  <div id="bubble-exp" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;"></div>
+  <div class="inner">
+    <div class="s-label" style="margin-bottom:14px">Experiencia</div>
+    <h2 class="s-title" style="margin-bottom:52px">En campo.<br/><em>Con resultados.</em></h2>
+    <div class="exp-wrap">
+      <div class="exp-left">
+        <div class="exp-tag">Soledad, Colombia · 2025–Presente</div>
+        <div class="exp-brand">Boca'o<br/><em>Fast Food</em></div>
+        <p class="exp-body">Restaurante de comidas rápidas (cocina oculta) para el que construí y ejecuto toda la presencia digital desde cero — estrategia, contenido, redes y tecnología trabajando juntos.</p>
+        <div class="exp-pills">
+          <span class="pill-dark">Estrategia</span>
+          <span class="pill-dark">Grabación</span>
+          <span class="pill-dark">Edición</span>
+          <span class="pill-dark">Instagram</span>
+          <span class="pill-dark">TikTok</span>
+          <span class="pill-dark">Web</span>
+        </div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-item">
+          <div class="exp-line"></div>
+          <div>
+            <div class="exp-item-title">Estrategia de marketing completa</div>
+            <div class="exp-item-sub">Posicionamiento, voz y plan de crecimiento orgánico del restaurante</div>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-line"></div>
+          <div>
+            <div class="exp-item-title">Producción audiovisual</div>
+            <div class="exp-item-sub">Grabación y edición de todos los videos publicados en redes sociales</div>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-line"></div>
+          <div>
+            <div class="exp-item-title">Gestión de Instagram & TikTok</div>
+            <div class="exp-item-sub">Manejo completo de ambas plataformas del restaurante</div>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-line"></div>
+          <div>
+            <div class="exp-item-title">Página web con pedidos online</div>
+            <div class="exp-item-sub">Sitio con menú interactivo y sistema de pedidos por WhatsApp</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILOSOFÍA -->
+<section id="evento" style="padding:0;position:relative;overflow:hidden;">
+  <div id="bubble-ev" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1;"></div>
+  <img src="fotos/emily-event.jpg" class="evento-img" alt="Emily en evento"/>
+  <div class="evento-overlay">
+    <div class="evento-text">
+      <div class="evento-label">Mi filosofía</div>
+      <div class="evento-quote">
+        "No separo<br/>el pensar<br/><em>del hacer."</em>
+      </div>
+      <p class="evento-sub">Estrategia sin ejecución es solo una idea. Ejecución sin estrategia es ruido. Yo hago las dos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCACIÓN -->
+<section id="educacion">
+  <div id="bubble-edu" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;"></div>
+  <div class="inner">
+    <div class="edu-grid">
+      <div>
+        <div class="s-label">Educación</div>
+        <h2 class="s-title">Bases<br/><em>sólidas.</em></h2>
+        <div class="bar"></div>
+        <div class="edu-card">
+          <img src="fotos/emily-uni.jpg" class="edu-uni-img" alt="Universidad Sergio Arboleda"/>
+          <div class="edu-year">2026 – Presente</div>
+          <div class="edu-name">Universidad Sergio Arboleda</div>
+          <div class="edu-degree">Negocios Estratégicos de Moda</div>
+          <p class="edu-desc">Aprendo a leer la industria más allá de las tendencias: discurso cultural, comportamiento del consumidor y estrategias de marca con propósito. Entiendo el negocio en su totalidad, no solo el producto.</p>
+        </div>
+      </div>
+      <div>
+        <div class="s-label" style="margin-bottom:32px">Habilidades</div>
+        <div class="skills-wrap">
+          <div class="skill">
+            <div class="skill-row"><span class="skill-name">Estrategia de contenido</span><span class="skill-pct">95%</span></div>
+            <div class="skill-track"><div class="skill-fill" style="width:95%"></div></div>
+          </div>
+          <div class="skill">
+            <div class="skill-row"><span class="skill-name">Creación y edición de video</span><span class="skill-pct">90%</span></div>
+            <div class="skill-track"><div class="skill-fill" style="width:90%"></div></div>
+          </div>
+          <div class="skill">
+            <div class="skill-row"><span class="skill-name">Instagram & TikTok</span><span class="skill-pct">92%</span></div>
+            <div class="skill-track"><div class="skill-fill" style="width:92%"></div></div>
+          </div>
+          <div class="skill">
+            <div class="skill-row"><span class="skill-name">Análisis de marca y consumidor</span><span class="skill-pct">85%</span></div>
+            <div class="skill-track"><div class="skill-fill" style="width:85%"></div></div>
+          </div>
+          <div class="skill">
+            <div class="skill-row"><span class="skill-name">Marketing digital</span><span class="skill-pct">88%</span></div>
+            <div class="skill-track"><div class="skill-fill" style="width:88%"></div></div>
+          </div>
+          <div class="skill">
+            <div class="skill-row"><span class="skill-name">Desarrollo web</span><span class="skill-pct">78%</span></div>
+            <div class="skill-track"><div class="skill-fill" style="width:78%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FE / MANTRA -->
+<section id="fe">
+  <div id="bubble-fe" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;"></div>
+  <div class="fe-inner">
+    <div class="fe-left">
+      <div class="fe-mantra-label">Mi mantra personal</div>
+      <div class="fe-mantra">"Nada es tan malo<br/>como parece."</div>
+      <div class="fe-sub">— Dios siempre primero</div>
+    </div>
+    <div class="fe-right">
+      <div class="fe-verse">
+        <div class="fe-verse-ref">2 Corintios 5:17</div>
+        <div class="fe-verse-text">"De modo que si alguno está en Cristo, nueva criatura es; las cosas viejas pasaron; he aquí todas son hechas nuevas."</div>
+      </div>
+      <div class="fe-verse">
+        <div class="fe-verse-ref">Eclesiastés 3:1</div>
+        <div class="fe-verse-text">"Todo tiene su momento oportuno; hay un tiempo para todo lo que se hace bajo el cielo."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENIDO -->
+<section id="contenido">
+  <div id="bubble-con" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;"></div>
+  <div class="inner">
+    <div class="contenido-head">
+      <div class="s-label">Contenido</div>
+      <h2 class="s-title">Mi trabajo<br/><em>en acción</em></h2>
+      <div class="bar"></div>
+    </div>
+    <div class="plat-tabs">
+      <button class="ptab on" onclick="showTab('ig',this)">Instagram Reels</button>
+      <button class="ptab" onclick="showTab('tt',this)">TikTok</button>
+    </div>
+
+    <div class="ig-grid" id="ig-panel">
+      <a class="ig-card" href="https://www.instagram.com/reel/DWHVv0EgBx0/" target="_blank">
+        <div class="ig-card-header">
+          <div class="ig-reel-badge">▶ Reel</div>
+          <div class="ig-play">▶</div>
+        </div>
+        <div class="ig-card-body">
+          <div class="ig-card-user">@Emilysofiias</div>
+          <div class="ig-card-desc">Contenido para Boca'o Fast Food — la cocina oculta que está conquistando Soledad.</div>
+          <span class="ig-card-btn">Ver en Instagram ↗</span>
+        </div>
+      </a>
+      <a class="ig-card" href="https://www.instagram.com/reel/DZN-rq4BI__/" target="_blank">
+        <div class="ig-card-header" style="background:linear-gradient(135deg,#f77737,#fcb045,#fd1d1d);">
+          <div class="ig-reel-badge">▶ Reel</div>
+          <div class="ig-play">▶</div>
+        </div>
+        <div class="ig-card-body">
+          <div class="ig-card-user">@Emilysofiias</div>
+          <div class="ig-card-desc">Estrategia visual en acción — contenido orgánico que genera conversación y ventas reales.</div>
+          <span class="ig-card-btn">Ver en Instagram ↗</span>
+        </div>
+      </a>
+      <a class="ig-card" href="https://www.instagram.com/reel/DXm51L7kd-9/" target="_blank">
+        <div class="ig-card-header" style="background:linear-gradient(135deg,#405de6,#833ab4,#c13584);">
+          <div class="ig-reel-badge">▶ Reel</div>
+          <div class="ig-play">▶</div>
+        </div>
+        <div class="ig-card-body">
+          <div class="ig-card-user">@Emilysofiias</div>
+          <div class="ig-card-desc">Edición, producción y storytelling ejecutados desde cero para la marca del restaurante.</div>
+          <span class="ig-card-btn">Ver en Instagram ↗</span>
+        </div>
+      </a>
+      <a class="ig-card" href="https://www.instagram.com/reel/DXKr1bKCVAA/" target="_blank">
+        <div class="ig-card-header" style="background:linear-gradient(135deg,#cc2936,#ff4d8d,#fd5e53);">
+          <div class="ig-reel-badge">▶ Reel</div>
+          <div class="ig-play">▶</div>
+        </div>
+        <div class="ig-card-body">
+          <div class="ig-card-user">@Emilysofiias</div>
+          <div class="ig-card-desc">Contenido que conecta con la audiencia real — sin ads, solo estrategia y creatividad pura.</div>
+          <span class="ig-card-btn">Ver en Instagram ↗</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="tt-grid" id="tt-panel">
+      <div class="tt-wrap">
+        <blockquote class="tiktok-embed"
+          cite="https://www.tiktok.com/@eem1l7/video/7619828633208622357"
+          data-video-id="7619828633208622357"
+          style="max-width:605px;min-width:325px;margin:0 auto;">
+          <section></section>
+        </blockquote>
+      </div>
+      <div class="tt-wrap">
+        <blockquote class="tiktok-embed"
+          cite="https://www.tiktok.com/@eem1l7/video/7623203504101854484"
+          data-video-id="7623203504101854484"
+          style="max-width:605px;min-width:325px;margin:0 auto;">
+          <section></section>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div id="bubble-cta" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0;"></div>
+  <div class="inner">
+    <div class="contacto-inner">
+      <div class="s-label">Contacto</div>
+      <h2 class="s-title">¿Hablamos<br/>de tu <em>marca?</em></h2>
+      <div class="bar"></div>
+      <p class="contacto-sub">
+        Disponible para <strong>proyectos freelance</strong>, colaboraciones y consultoría.<br/>
+        Si tu marca necesita dirección real, escríbeme — respondo rápido.
+      </p>
+      <a href="mailto:emilysofia0823@gmail.com" class="contacto-email">emilysofia0823@gmail.com</a>
+      <div class="soc-row">
+        <a href="https://wa.me/573233813982" target="_blank" class="soc-btn wa">WhatsApp</a>
+        <a href="https://instagram.com/Emilysofiias" target="_blank" class="soc-btn">@Emilysofiias</a>
+        <a href="https://tiktok.com/@Eem1l7" target="_blank" class="soc-btn">@Eem1l7</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Emily Sánchez · Todos los derechos reservados</p>
+  <p>Hecho con 💗 en Colombia · <a href="https://instagram.com/Emilysofiias" target="_blank">@Emilysofiias</a></p>
+</footer>
+
+<script async src="https://www.tiktok.com/embed.js"></script>
+<script>
+// ── TABS ──
+function showTab(tab, btn) {
+  document.querySelectorAll('.ptab').forEach(t => t.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('ig-panel').style.display = tab === 'ig' ? 'grid' : 'none';
+  document.getElementById('tt-panel').style.display = tab === 'tt' ? 'grid' : 'none';
+}
+
+// ── REAL SOAP BUBBLES ──
+const NS = 'http://www.w3.org/2000/svg';
+let gradId = 0;
+
+function makeBubbleSVG(size) {
+  const id1 = 'bg' + (gradId++);
+  const id2 = 'bg' + (gradId++);
+  const id3 = 'bg' + (gradId++);
+
+  // Iridescent hues — cycle through pink/teal/gold/lilac like soap film
+  const hues = [
+    ['rgba(255,100,150,0.18)', 'rgba(100,220,200,0.10)'],
+    ['rgba(180,100,255,0.15)', 'rgba(255,200,80,0.10)'],
+    ['rgba(80,200,220,0.18)',  'rgba(255,100,180,0.10)'],
+    ['rgba(255,180,50,0.14)',  'rgba(120,80,255,0.10)'],
+  ];
+  const [c1, c2] = hues[Math.floor(Math.random() * hues.length)];
+
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('width', size);
+  svg.setAttribute('height', size);
+  svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+  svg.style.cssText = `position:absolute;pointer-events:none;`;
+
+  const defs = document.createElementNS(NS, 'defs');
+
+  // Main body gradient
+  const rg1 = document.createElementNS(NS, 'radialGradient');
+  rg1.setAttribute('id', id1);
+  rg1.setAttribute('cx', '38%'); rg1.setAttribute('cy', '35%');
+  rg1.setAttribute('r', '65%');
+  rg1.innerHTML = `
+    <stop offset="0%" stop-color="${c1}"/>
+    <stop offset="60%" stop-color="${c2}"/>
+    <stop offset="100%" stop-color="rgba(255,255,255,0.02)"/>
+  `;
+
+  // Shimmer ring gradient
+  const rg2 = document.createElementNS(NS, 'radialGradient');
+  rg2.setAttribute('id', id2);
+  rg2.setAttribute('cx', '50%'); rg2.setAttribute('cy', '50%');
+  rg2.setAttribute('r', '50%');
+  rg2.innerHTML = `
+    <stop offset="82%" stop-color="rgba(255,255,255,0)"/>
+    <stop offset="95%" stop-color="rgba(255,255,255,0.25)"/>
+    <stop offset="100%" stop-color="rgba(255,255,255,0.08)"/>
+  `;
+
+  // Highlight gradient
+  const rg3 = document.createElementNS(NS, 'radialGradient');
+  rg3.setAttribute('id', id3);
+  rg3.setAttribute('cx', '35%'); rg3.setAttribute('cy', '28%');
+  rg3.setAttribute('r', '30%');
+  rg3.innerHTML = `
+    <stop offset="0%" stop-color="rgba(255,255,255,0.55)"/>
+    <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+  `;
+
+  defs.appendChild(rg1);
+  defs.appendChild(rg2);
+  defs.appendChild(rg3);
+  svg.appendChild(defs);
+
+  const r = size / 2;
+  const cx = size / 2;
+  const cy = size / 2;
+
+  // Main body
+  const body = document.createElementNS(NS, 'circle');
+  body.setAttribute('cx', cx); body.setAttribute('cy', cy); body.setAttribute('r', r - 1);
+  body.setAttribute('fill', `url(#${id1})`);
+  svg.appendChild(body);
+
+  // Shimmer ring
+  const ring = document.createElementNS(NS, 'circle');
+  ring.setAttribute('cx', cx); ring.setAttribute('cy', cy); ring.setAttribute('r', r - 1.5);
+  ring.setAttribute('fill', `url(#${id2})`);
+  svg.appendChild(ring);
+
+  // Top highlight
+  const hi = document.createElementNS(NS, 'ellipse');
+  hi.setAttribute('cx', cx * 0.78); hi.setAttribute('cy', cy * 0.56);
+  hi.setAttribute('rx', r * 0.28); hi.setAttribute('ry', r * 0.16);
+  hi.setAttribute('fill', `url(#${id3})`);
+  svg.appendChild(hi);
+
+  // Small secondary highlight
+  const hi2 = document.createElementNS(NS, 'circle');
+  hi2.setAttribute('cx', cx * 1.25); hi2.setAttribute('cy', cy * 0.45);
+  hi2.setAttribute('r', r * 0.08);
+  hi2.setAttribute('fill', 'rgba(255,255,255,0.35)');
+  svg.appendChild(hi2);
+
+  return svg;
+}
+
+function spawnBubbles(containerId, count, lightBg) {
+  const wrap = document.getElementById(containerId);
+  if (!wrap) return;
+
+  for (let i = 0; i < count; i++) {
+    const size = 24 + Math.random() * 100;
+    const svg = makeBubbleSVG(size);
+
+    const leftPct = Math.random() * 95;
+    const delay   = Math.random() * 18;
+    const dur     = 12 + Math.random() * 22;
+    const drift   = (Math.random() - 0.5) * 80;
+    const drift2  = (Math.random() - 0.5) * 60;
+    const startY  = Math.random() * 30; // start at different heights
+
+    svg.style.cssText = `
+      position:absolute;
+      left:${leftPct}%;
+      bottom:${-size - startY * 3}px;
+      width:${size}px; height:${size}px;
+      animation: floatBubble ${dur}s linear ${delay}s infinite;
+      --drift: ${drift}px;
+      --drift2: ${drift2}px;
+      opacity: 0;
+    `;
+
+    wrap.appendChild(svg);
+  }
+}
+
+// Inject keyframes
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes floatBubble {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    6%   { opacity: 1; }
+    50%  { transform: translateY(-45vh) translateX(var(--drift)); }
+    94%  { opacity: 0.75; }
+    100% { transform: translateY(-105vh) translateX(var(--drift2)); opacity: 0; }
+  }
+`;
+document.head.appendChild(style);
+
+spawnBubbles('bubble-container', 22);
+spawnBubbles('bubble-sobre',     14);
+spawnBubbles('bubble-srv',       14);
+spawnBubbles('bubble-exp',       12);
+spawnBubbles('bubble-ev',        10);
+spawnBubbles('bubble-edu',       13);
+spawnBubbles('bubble-fe',        14);
+spawnBubbles('bubble-con',       13);
+spawnBubbles('bubble-cta',       18);
+</script>
+</body>
+</html>
